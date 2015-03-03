@@ -1,0 +1,21 @@
+body {
+  padding : 2em;
+}
+
+[role="main"] {
+  text-align : center;
+}
+
+hr {
+  margin-top : 10px;
+}
+
+
+button {
+  width : 100%;
+}
+
+.-drummachine button {
+  text-align : center;
+  width : 80%;
+}

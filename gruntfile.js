@@ -45,12 +45,29 @@ module.exports = function (grunt) {
       }
     },
 
+    copy : {
+      lib : {
+        expand : true,
+        cwd : 'dist/',
+        src : '**',
+        dest : 'test/assets/js/',
+        flatten : true,
+        filter : 'isFile'
+      }
+    },
+
+    open : {
+      test : {
+        path : 'test/index.html'
+      }
+    },
+
     watch : {
       source : {
         files : [
           'src/**/*.{js,es6}'
         ],
-        tasks : ['build']
+        tasks : ['build', 'copy']
       },
 
       // :: reload this grunt configuration when the gruntfile changes live
@@ -62,6 +79,9 @@ module.exports = function (grunt) {
 
   });
 
+  grunt.registerTask('serve', ['build', 'open:test', 'watch']);
+
   grunt.registerTask('build', ['jshint:source', 'browserify', 'uglify']);
+  grunt.registerTask('test', ['build, copy']);
 
 };
