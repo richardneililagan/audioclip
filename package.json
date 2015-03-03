@@ -1,0 +1,11 @@
+{
+  "name": "audioclip",
+  "version": "0.0.0",
+  "description": "Quick and easy playing of audio for the web.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Richard Neil A Ilagan",
+  "license": "MIT"
+}
