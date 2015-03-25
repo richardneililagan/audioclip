@@ -13,6 +13,7 @@ hr {
 
 button {
   width : 100%;
+  text-transform : uppercase;
 }
 
 .-drummachine button {

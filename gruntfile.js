@@ -4,7 +4,7 @@ module.exports = function (grunt) {
 
   // :: lazy load grunt components
   require ('jit-grunt')(grunt, {
-    // TODO aliases
+    express : 'grunt-express-server'
   });
 
   grunt.initConfig({
@@ -58,7 +58,19 @@ module.exports = function (grunt) {
 
     open : {
       test : {
-        path : 'test/index.html'
+        path : 'http://localhost:<%= express.options.port %>/index.html'
+      }
+    },
+
+    express : {
+      options : {
+        port : process.env.PORT || 9000
+      },
+      dev : {
+        options : {
+          script : 'test/app-test.js',
+          debug : true
+        }
       }
     },
 
@@ -70,6 +82,26 @@ module.exports = function (grunt) {
         tasks : ['build', 'copy']
       },
 
+      livereload : {
+        files : [
+          'test/assets/**/*.*'
+        ],
+        options : {
+          livereload : true
+        }
+      },
+
+      express : {
+        files : [
+          'test/app-test.js'
+        ],
+        tasks : ['express', 'wait'],
+        options : {
+          livereload : true,
+          nospawn : true
+        }
+      },
+
       // :: reload this grunt configuration when the gruntfile changes live
       gruntfile : {
         files : ['gruntfile.js'],
@@ -79,7 +111,21 @@ module.exports = function (grunt) {
 
   });
 
-  grunt.registerTask('serve', ['build', 'open:test', 'watch']);
+  grunt.registerTask('wait', function () {
+    grunt.log.ok('Waiting for server reload.');
+
+    var done = this.async();
+    setTimeout(function () {
+      grunt.log.writeln('Done waiting.');
+      done();
+    }, 1500);
+  });
+
+  grunt.registerTask('express-keepalive', function () {
+    this.async();
+  });
+
+  grunt.registerTask('serve', ['build', 'express', 'wait', 'open:test', 'watch']);
 
   grunt.registerTask('build', ['jshint:source', 'browserify', 'uglify']);
   grunt.registerTask('test', ['build, copy']);
