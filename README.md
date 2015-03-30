@@ -77,6 +77,10 @@ var cabinet = audioclip.createCabinet();
 var snareEffector = cabinet.clip('snare', snare);
 var hihatEffector = cabinet.clip('hihat', hihat);
 
+// alternatively :
+// var snareEffector = cabinet.clip('snare', 'path/to/snare.mp3');
+// var hihatEffector = cabinet.clip('hihat', 'path/to/hihat.mp3');
+
 cabinet.play();
 ```
 
@@ -112,4 +116,26 @@ cabinet.play();
 // or play a single cabinet clip using a custom bpm
 // :: this will take into account the cabinet clip's registered beats
 snareEffector.play(216);
+```
+
+## Rock tune example
+
+```javascript
+var cabinet = audioclip.createCabinet();
+
+// register clips and timings
+cabinet.clip('hihat', 'hihat.mp3').beat(0, 1, 2, 3, 4, 5, 6, 7);
+cabinet.clip('kick', 'kick.mp3').beat(0, 3/2, 7/2, 9/2, 11/2);
+cabinet.clip('snare', 'snare.mp3').beat(2, 6);
+
+// set bpm
+cabinet.bpm(216);
+
+// let's rock!
+cabinet.play();
+
+//
+// hihat :: -X---X---X---X---X---X---X---X-
+// snare :: ---------X---------------X-----
+//  kick :: -X-----X-------X---X---X-------
 ```
