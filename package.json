@@ -10,6 +10,7 @@
   "license": "MIT",
   "devDependencies": {
     "babelify": "^5.0.3",
+    "es6-symbol": "^2.0.1",
     "express": "^4.12.3",
     "grunt": "^0.4.5",
     "grunt-browserify": "^3.5.0",
@@ -21,6 +22,7 @@
     "grunt-open": "^0.2.3",
     "jit-grunt": "^0.9.1",
     "jshint-stylish": "^1.0.1",
-    "lodash": "^3.3.1"
+    "promise": "^6.1.0",
+    "q": "^1.2.0"
   }
 }

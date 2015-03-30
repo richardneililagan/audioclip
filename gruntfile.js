@@ -27,7 +27,8 @@ module.exports = function (grunt) {
       },
       build : {
         options : {
-          transform : ['babelify']
+          transform : ['babelify'],
+          extensions : ['.js', '.es6']
         },
         src : 'src/audioclip.es6',
         dest : 'dist/audioclip.js'

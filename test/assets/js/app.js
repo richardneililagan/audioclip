@@ -8,7 +8,7 @@ jQuery(function ($) {
         ;
 
     self
-      .on('click', 'button', function (event) {
+      .on('mousedown', 'button', function (event) {
         event.preventDefault();
 
         // :: essentially :
