@@ -31,14 +31,21 @@ class acAudioBufferEffector extends acAudioSourceNode {
 
   play (beattime = 60 / 120) {
 
-    //let currentTime = this.__context.currentTime;
     let len = this.__timings.length >>> 0;
 
-    // :: process when to play according to timings
-    for (let idx = 0 ; idx < len; idx++) {
+    // :: if there are no registered beat times,
+    //    then play this clip once at the start
+    if (len === 0) {
+      this.buffer.play();
+    }
 
-      let resolvedTime = this.__timings[idx] * beattime;
-      this.buffer.play(resolvedTime);
+    else {
+      // :: process when to play according to timings
+      for (let idx = 0 ; idx < len; idx++) {
+
+        let resolvedTime = this.__timings[idx] * beattime;
+        this.buffer.play(resolvedTime);
+      }
     }
 
   }

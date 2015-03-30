@@ -738,14 +738,19 @@ var acAudioBufferEffector = (function (acAudioSourceNode) {
       value: function play() {
         var beattime = arguments[0] === undefined ? 60 / 120 : arguments[0];
 
-        //let currentTime = this.__context.currentTime;
         var len = this.__timings.length >>> 0;
 
-        // :: process when to play according to timings
-        for (var idx = 0; idx < len; idx++) {
+        // :: if there are no registered beat times,
+        //    then play this clip once at the start
+        if (len === 0) {
+          this.buffer.play();
+        } else {
+          // :: process when to play according to timings
+          for (var idx = 0; idx < len; idx++) {
 
-          var resolvedTime = this.__timings[idx] * beattime;
-          this.buffer.play(resolvedTime);
+            var resolvedTime = this.__timings[idx] * beattime;
+            this.buffer.play(resolvedTime);
+          }
         }
       },
       writable: true,
