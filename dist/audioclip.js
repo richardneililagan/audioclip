@@ -723,12 +723,21 @@ var acAudioBufferEffector = (function (acAudioSourceNode) {
           beats[_key] = arguments[_key];
         }
 
+        // return the currently registered beats when no argument is specified
+        if (!beats.length) {
+          return this.__timings;
+        }
+
         Array.prototype.push.apply(this.__timings, beats.filter(function (n) {
           return Number.isFinite(n) && n >= 0;
         }));
         // :: sort in ascending order
         this.__timings.sort(function (a, b) {
           return a - b;
+        });
+        // :: remove duplicates
+        this.__timings = this.__timings.filter(function (item, idx, collection) {
+          return collection.indexOf(item) === idx;
         });
       },
       writable: true,
