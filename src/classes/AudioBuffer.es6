@@ -100,6 +100,17 @@ class acAudioBuffer extends acAudioSourceNode {
    */
   play (time = 0, offset = 0, duration = this.__buffer.duration - offset) {
 
+    // :: failsafe
+    time = Number.isFinite(time) ? time : 0;
+
+    offset = Math.max(0,
+      Math.min(this.__buffer.duration, Number.isFinite(offset) ? offset : 0)
+      );
+
+    duration = Number.isFinite(duration) ? duration : this.__buffer.duration - offset;
+
+    console.log(time);
+
     this.__sourcenode.start(
       this.__context.currentTime + time,
       offset,
