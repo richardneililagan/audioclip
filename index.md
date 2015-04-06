@@ -60,17 +60,17 @@ boombass(delay, offset, duration);
   <div class="three columns">&nbsp;</div>
   <div class="-range two columns">
     <h4><span>2.00</span><small>seconds</small></h4>
-    <input type="range" data-range="delay" min="0" max="4" />
+    <input type="range" data-range="delay" min="0.00" max="4" step=".01" />
     <label>Delay</label>
   </div>
   <div class="-range two columns">
     <h4><span>2.00</span><small>seconds</small></h4>
-    <input type="range" data-range="offset" min="0" max="4" />
+    <input type="range" data-range="offset" min="0.00" max="4" step=".01" />
     <label>Offset</label>
   </div>
   <div class="-range two columns">
     <h4><span>2.00</span><small>seconds</small></h4>
-    <input type="range" data-range="duration" min="0" max="4" />
+    <input type="range" data-range="duration" min="0.00" max="4" step=".01" />
     <label>Duration</label>
   </div>
   <div class="three columns">&nbsp;</div>
@@ -91,7 +91,7 @@ jQuery(function ($) {
     .on('input', function () {
 
       var range = $(this);
-      var time = range.val();
+      var time = +range.val();
 
       $(this).data('label').text(time.toFixed(2));
     });
@@ -100,11 +100,56 @@ jQuery(function ($) {
   $('.o-demo-play-02 .button-primary')
     .on('click', function () {
 
-      var delay = ranges.eq(0).val();
-      var offset = ranges.eq(1).val();
-      var duration = ranges.eq(2).val();
+      var delay = +ranges.eq(0).val();
+      var offset = +ranges.eq(1).val();
+      var duration = +ranges.eq(2).val();
 
       guitar(delay,offset,duration);
     });
 });
+</script>
+
+
+### Syncing plays
+
+Multiple audioclips can be made to play in sync with each other, each with its own scheduling of when it plays.
+Coordination of the play schedules can be controlled together using a **bpm** measure.
+
+{% highlight javascript linenos %}
+var cabinet = audioclip.createCabinet();
+
+cabinet.clip('hihat', 'hihat.mp3').beat(0, 1, 2, 3, 4, 5, 6, 7);
+  cabinet.clip('kick', 'kick.mp3').beat(0, 3/2, 7/2, 9/2, 11/2);
+  cabinet.clip('snare', 'snare.mp3').beat(2, 3, 6, 28/4, 29/4, 30/4, 31/4);
+
+// set bpm
+cabinet.bpm(216);
+
+cabinet.play();
+{% endhighlight %}
+
+<button class="o-demo-play-03 -noted button-primary">
+  Let's rock!
+</button>
+
+<script>
+jQuery(function ($) {
+
+  var cabinet = audioclip.createCabinet();
+
+  cabinet.clip('hihat', 'assets/audio/hihat.mp3').beat(0, 1, 2, 3, 4, 5, 6, 7);
+  cabinet.clip('kick', 'assets/audio/kick.mp3').beat(0, 3/2, 7/2, 9/2, 11/2);
+  cabinet.clip('snare', 'assets/audio/snare.mp3').beat(2, 3, 6, 28/4, 29/4, 30/4, 31/4);
+
+  // set bpm
+  cabinet.bpm(216);
+
+  $('button.o-demo-play-03')
+    .on('click', function () {
+      cabinet.play();
+    })
+    ;
+
+});
+
 </script>
