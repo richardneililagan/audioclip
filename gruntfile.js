@@ -59,7 +59,7 @@ module.exports = function (grunt) {
         expand : true,
         cwd : 'dist/',
         src : '**',
-        dest : '_sitesrc/assets/js/',
+        dest : 'assets/js/',
         flatten : true,
         filter : 'isFile'
       }

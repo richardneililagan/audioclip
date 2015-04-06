@@ -1,4 +1,5 @@
 # :: files and stuff
+source : ./
 destination : ./_site
 
 layouts : ./_sitesrc/_layouts
@@ -11,7 +12,8 @@ sass :
   sass_dir : ./_sitesrc/_sass
   style : :compressed
 
-exclude : ['Gemfile', 'Gemfile.lock', 'bower.json', 'gruntfile.js', 'package.json', 'dist', 'node_modules', 'src', 'test']
+exclude : ['Gemfile', 'bower.json', 'gruntfile.js', 'package.json', 'dist', 'node_modules', 'src', 'test']
+include : ['_sitesrc']
 
 # :: meta
 timezone : 'Asia/Singapore'

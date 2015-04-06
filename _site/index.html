@@ -79,7 +79,63 @@ jQuery(function ($) {
 
 <h3 id="timing-and-scheduling">Timing and Scheduling</h3>
 
-<p>lorem10</p>
+<p>Specify how long to skip, how long to play, and how long to wait before playing any clip.</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="lineno">1</span> <span class="kd">var</span> <span class="nx">boombass</span> <span class="o">=</span> <span class="nx">audioclip</span><span class="p">(</span><span class="s1">&#39;/boombass.ogg&#39;</span><span class="p">);</span>
+<span class="lineno">2</span> <span class="nx">boombass</span><span class="p">(</span><span class="nx">delay</span><span class="p">,</span> <span class="nx">offset</span><span class="p">,</span> <span class="nx">duration</span><span class="p">);</span></code></pre></div>
+
+<div class="o-demo-play-02 row">
+  <div class="three columns">&nbsp;</div>
+  <div class="-range two columns">
+    <h4><span>2.00</span><small>seconds</small></h4>
+    <input type="range" data-range="delay" />
+    <label>Delay</label>
+  </div>
+  <div class="-range two columns">
+    <h4><span>2.00</span><small>seconds</small></h4>
+    <input type="range" data-range="offset" />
+    <label>Offset</label>
+  </div>
+  <div class="-range two columns">
+    <h4><span>2.00</span><small>seconds</small></h4>
+    <input type="range" data-range="duration" />
+    <label>Duration</label>
+  </div>
+  <div class="three columns">&nbsp;</div>
+  <div class="twelve columns">
+    <button class="button-primary -noted">
+      Guitar Solo!
+    </button>
+  </div>
+</div>
+
+<script>
+jQuery(function ($) {
+  var ranges = $('.o-demo-play-02 input[type=range]')
+    .each(function () {
+      var range = $(this);
+      range.data('label', range.prev('h4').find('span'));
+    })
+    .on('input', function () {
+
+      var range = $(this);
+      var time = range.val() / 25;
+
+      $(this).data('label').text(time.toFixed(2));
+    });
+
+  var guitar = audioclip('assets/audio/guitar-fmajor.mp3');
+  $('.o-demo-play-02 .button-primary')
+    .on('click', function () {
+
+      var delay = ranges.eq(0).val() / 25;
+      var offset = ranges.eq(1).val() / 25;
+      var duration = ranges.eq(2).val() / 25;
+
+      guitar(delay,offset,duration);
+    });
+});
+</script>
 
 
 

@@ -49,4 +49,62 @@ jQuery(function ($) {
 
 ### Timing and Scheduling
 
-lorem10
+Specify how long to skip, how long to play, and how long to wait before playing any clip.
+
+{% highlight javascript linenos %}
+var boombass = audioclip('/boombass.ogg');
+boombass(delay, offset, duration);
+{% endhighlight %}
+
+<div class="o-demo-play-02 row">
+  <div class="three columns">&nbsp;</div>
+  <div class="-range two columns">
+    <h4><span>2.00</span><small>seconds</small></h4>
+    <input type="range" data-range="delay" />
+    <label>Delay</label>
+  </div>
+  <div class="-range two columns">
+    <h4><span>2.00</span><small>seconds</small></h4>
+    <input type="range" data-range="offset" />
+    <label>Offset</label>
+  </div>
+  <div class="-range two columns">
+    <h4><span>2.00</span><small>seconds</small></h4>
+    <input type="range" data-range="duration" />
+    <label>Duration</label>
+  </div>
+  <div class="three columns">&nbsp;</div>
+  <div class="twelve columns">
+    <button class="button-primary -noted">
+      Guitar Solo!
+    </button>
+  </div>
+</div>
+
+<script>
+jQuery(function ($) {
+  var ranges = $('.o-demo-play-02 input[type=range]')
+    .each(function () {
+      var range = $(this);
+      range.data('label', range.prev('h4').find('span'));
+    })
+    .on('input', function () {
+
+      var range = $(this);
+      var time = range.val() / 25;
+
+      $(this).data('label').text(time.toFixed(2));
+    });
+
+  var guitar = audioclip('assets/audio/guitar-fmajor.mp3');
+  $('.o-demo-play-02 .button-primary')
+    .on('click', function () {
+
+      var delay = ranges.eq(0).val() / 25;
+      var offset = ranges.eq(1).val() / 25;
+      var duration = ranges.eq(2).val() / 25;
+
+      guitar(delay,offset,duration);
+    });
+});
+</script>
