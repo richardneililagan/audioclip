@@ -109,8 +109,6 @@ class acAudioBuffer extends acAudioSourceNode {
 
     duration = Number.isFinite(duration) ? duration : this.__buffer.duration - offset;
 
-    console.log(time);
-
     this.__sourcenode.start(
       this.__context.currentTime + time,
       offset,
