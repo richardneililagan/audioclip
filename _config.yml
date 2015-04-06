@@ -33,7 +33,7 @@ meta :
 
 # :: externs
 analytics :
-  id : UA-X-XXXXXXX-X
+  id : UA-61578430-1
 
 # :: formatting
 highlighter : pygments

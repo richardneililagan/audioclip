@@ -10,6 +10,7 @@ Quick and easy playing of audio for the web.
 > * Looping plays
 > * Stopping plays manually
 > * Fallback support + detection for buffers created using standard HTML5 AudioBuffer
+> * `AudioBuffer` and `AudioBufferEffector` seem redundant. Probably merge them into a single class.
 
 ## Usage
 
@@ -107,7 +108,7 @@ When you call `cabinet.play()`, this _bpm_ is taken into account by
 all clips registered to the `cabinet`.
 
 Alternatively, you can also play a single `cabinet` clip by calling
-its `.play(bpm)` function as well (where `bpm` defaults to 120).
+its `.play(beat_time)` function as well (where `beat_time` defaults to `0.5 (sec)`, equivalent to `bpm === 120`).
 
 ```
 cabinet.bpm(160);
@@ -115,7 +116,7 @@ cabinet.play();
 
 // or play a single cabinet clip using a custom bpm
 // :: this will take into account the cabinet clip's registered beats
-snareEffector.play(216);
+snareEffector.play(60 / 216);   // 216 beats per 60 seconds
 ```
 
 ## Rock tune example
