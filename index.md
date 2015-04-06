@@ -118,9 +118,9 @@ Coordination of the play schedules can be controlled together using a **bpm** me
 {% highlight javascript linenos %}
 var cabinet = audioclip.createCabinet();
 
-cabinet.clip('hihat', 'hihat.mp3').beat(0, 1, 2, 3, 4, 5, 6, 7);
-  cabinet.clip('kick', 'kick.mp3').beat(0, 3/2, 7/2, 9/2, 11/2);
-  cabinet.clip('snare', 'snare.mp3').beat(2, 3, 6, 28/4, 29/4, 30/4, 31/4);
+cabinet.clip('hihat', 'hihat.mp3').beat(0, 1, 2, 5/2, 3, 4, 5, 6, 13/2, 7);
+cabinet.clip('kick', 'kick.mp3').beat(0, 3/2, 7/2, 9/2, 11/2);
+cabinet.clip('snare', 'snare.mp3').beat(2, 3, 6, 28/4, 29/4, 30/4, 31/4);
 
 // set bpm
 cabinet.bpm(216);
@@ -149,7 +149,7 @@ jQuery(function ($) {
 
   var cabinet = audioclip.createCabinet();
 
-  cabinet.clip('hihat', 'assets/audio/hihat.mp3').beat(0, 1, 2, 3, 4, 5, 6, 7);
+  cabinet.clip('hihat', 'assets/audio/hihat.mp3').beat(0, 1, 2, 5/2, 3, 4, 5, 6, 13/2, 7);
   cabinet.clip('kick', 'assets/audio/kick.mp3').beat(0, 3/2, 7/2, 9/2, 11/2);
   cabinet.clip('snare', 'assets/audio/snare.mp3').beat(2, 3, 6, 28/4, 29/4, 30/4, 31/4);
 
@@ -168,7 +168,17 @@ jQuery(function ($) {
       cabinet.play();
     })
     ;
-
 });
 
 </script>
+
+## Check it out!
+
+<a href="https://github.com/richardneililagan/audioclip" class="button -download">
+  Download from Github
+</a>
+
+<div>
+  <iframe src="https://ghbtns.com/github-btn.html?user=richardneililagan&repo=audioclip&type=star&count=true" frameborder="0" scrolling="0" width="80px" height="20px"></iframe>
+  <iframe src="https://ghbtns.com/github-btn.html?user=richardneililagan&type=follow&count=true" frameborder="0" scrolling="0" width="200px" height="20px"></iframe>
+</div>

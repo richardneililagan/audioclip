@@ -144,9 +144,9 @@ Coordination of the play schedules can be controlled together using a <strong>bp
 
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="lineno"> 1</span> <span class="kd">var</span> <span class="nx">cabinet</span> <span class="o">=</span> <span class="nx">audioclip</span><span class="p">.</span><span class="nx">createCabinet</span><span class="p">();</span>
 <span class="lineno"> 2</span> 
-<span class="lineno"> 3</span> <span class="nx">cabinet</span><span class="p">.</span><span class="nx">clip</span><span class="p">(</span><span class="s1">&#39;hihat&#39;</span><span class="p">,</span> <span class="s1">&#39;hihat.mp3&#39;</span><span class="p">).</span><span class="nx">beat</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>
-<span class="lineno"> 4</span>   <span class="nx">cabinet</span><span class="p">.</span><span class="nx">clip</span><span class="p">(</span><span class="s1">&#39;kick&#39;</span><span class="p">,</span> <span class="s1">&#39;kick.mp3&#39;</span><span class="p">).</span><span class="nx">beat</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">11</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>
-<span class="lineno"> 5</span>   <span class="nx">cabinet</span><span class="p">.</span><span class="nx">clip</span><span class="p">(</span><span class="s1">&#39;snare&#39;</span><span class="p">,</span> <span class="s1">&#39;snare.mp3&#39;</span><span class="p">).</span><span class="nx">beat</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">28</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">29</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">30</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">31</span><span class="o">/</span><span class="mi">4</span><span class="p">);</span>
+<span class="lineno"> 3</span> <span class="nx">cabinet</span><span class="p">.</span><span class="nx">clip</span><span class="p">(</span><span class="s1">&#39;hihat&#39;</span><span class="p">,</span> <span class="s1">&#39;hihat.mp3&#39;</span><span class="p">).</span><span class="nx">beat</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">13</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>
+<span class="lineno"> 4</span> <span class="nx">cabinet</span><span class="p">.</span><span class="nx">clip</span><span class="p">(</span><span class="s1">&#39;kick&#39;</span><span class="p">,</span> <span class="s1">&#39;kick.mp3&#39;</span><span class="p">).</span><span class="nx">beat</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">11</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>
+<span class="lineno"> 5</span> <span class="nx">cabinet</span><span class="p">.</span><span class="nx">clip</span><span class="p">(</span><span class="s1">&#39;snare&#39;</span><span class="p">,</span> <span class="s1">&#39;snare.mp3&#39;</span><span class="p">).</span><span class="nx">beat</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">28</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">29</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">30</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">31</span><span class="o">/</span><span class="mi">4</span><span class="p">);</span>
 <span class="lineno"> 6</span> 
 <span class="lineno"> 7</span> <span class="c1">// set bpm</span>
 <span class="lineno"> 8</span> <span class="nx">cabinet</span><span class="p">.</span><span class="nx">bpm</span><span class="p">(</span><span class="mi">216</span><span class="p">);</span>
@@ -173,7 +173,7 @@ jQuery(function ($) {
 
   var cabinet = audioclip.createCabinet();
 
-  cabinet.clip('hihat', 'assets/audio/hihat.mp3').beat(0, 1, 2, 3, 4, 5, 6, 7);
+  cabinet.clip('hihat', 'assets/audio/hihat.mp3').beat(0, 1, 2, 5/2, 3, 4, 5, 6, 13/2, 7);
   cabinet.clip('kick', 'assets/audio/kick.mp3').beat(0, 3/2, 7/2, 9/2, 11/2);
   cabinet.clip('snare', 'assets/audio/snare.mp3').beat(2, 3, 6, 28/4, 29/4, 30/4, 31/4);
 
@@ -192,11 +192,20 @@ jQuery(function ($) {
       cabinet.play();
     })
     ;
-
 });
 
 </script>
 
+<h2 id="check-it-out">Check it out!</h2>
+
+<p><a href="https://github.com/richardneililagan/audioclip" class="button -download">
+  Download from Github
+</a></p>
+
+<div>
+  <iframe src="https://ghbtns.com/github-btn.html?user=richardneililagan&amp;repo=audioclip&amp;type=star&amp;count=true" frameborder="0" scrolling="0" width="80px" height="20px"></iframe>
+  <iframe src="https://ghbtns.com/github-btn.html?user=richardneililagan&amp;type=follow&amp;count=true" frameborder="0" scrolling="0" width="200px" height="20px"></iframe>
+</div>
 
 
 
