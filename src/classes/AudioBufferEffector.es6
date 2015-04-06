@@ -21,12 +21,22 @@ class acAudioBufferEffector extends acAudioSourceNode {
   }
 
   beat (...beats) {
+
+    // return the currently registered beats when no argument is specified
+    if (!beats.length) {
+      return this.__timings;
+    }
+
     Array.prototype.push.apply(
       this.__timings,
       beats.filter(n => Number.isFinite(n) && n >= 0)
       );
     // :: sort in ascending order
     this.__timings.sort((a,b) => a - b);
+    // :: remove duplicates
+    this.__timings = this.__timings.filter(
+      (item, idx, collection) => collection.indexOf(item) === idx
+      );
   }
 
   play (beattime = 60 / 120) {
