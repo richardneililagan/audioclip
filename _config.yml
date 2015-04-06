@@ -1,0 +1,33 @@
+# :: files and stuff
+source : ./_sitesrc
+destination : ./_site
+
+# :: build configs
+sass :
+  style : :compressed
+
+# :: meta
+timezone : 'Asia/Singapore'
+encoding : 'utf-8'
+baseurl  : '/audioclip'    # makes it easier to test this on dev
+
+defaults :
+  - scope :
+      path : "" # all files in the project
+    values :
+      layout : "default"
+
+meta :
+  name : "Audioclip"
+  description : "Totally gnarly library for playing audio clips."
+  hostname : "richardneililagan.github.io"
+
+# :: externs
+analytics :
+  id : UA-X-XXXXXXX-X
+
+# :: formatting
+highlighter : pygments
+markdown : kramdown
+kramdown :
+  input : GFM

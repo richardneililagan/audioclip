@@ -54,6 +54,14 @@ module.exports = function (grunt) {
         dest : 'test/assets/js/',
         flatten : true,
         filter : 'isFile'
+      },
+      site : {
+        expand : true,
+        cwd : 'dist/',
+        src : '**',
+        dest : '_sitesrc/assets/js/',
+        flatten : true,
+        filter : 'isFile'
       }
     },
 

@@ -1,0 +1,84 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+  <meta content='width=device-width, initial-scale=1.0' name='viewport'>
+
+  
+  <title></title>
+  <meta content="" property="og:title">
+  <meta content="" property="twitter:title">
+  
+
+  <meta content='Audioclip' property='og:site_name'>
+  <meta content="website" property="og:type">
+
+  
+  <meta content="Totally gnarly library for playing audio clips." name="description">
+  <meta content="Totally gnarly library for playing audio clips." property="og:description">
+  
+
+  
+
+  
+  <script>if(~location.hostname.indexOf("richardneililagan.github.io")){var _gaq=_gaq||[];_gaq.push(["_setAccount","UA-X-XXXXXXX-X"]);_gaq.push(["_trackPageview"]);(function(){var ga=document.createElement("script");ga.async=true;ga.src=("https:"==document.location.protocol?"https://ssl":"http://www")+".google-analytics.com/ga.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ga,s)})()}</script>
+  
+
+  <link href='http://fonts.googleapis.com/css?family=Aguafina+Script|Roboto:500,300,500italic,300italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/audioclip/assets/css/site.css">
+  
+
+  <script src="/audioclip/assets/js/modernizr.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="/audioclip/assets/js/audioclip.min.js"></script>
+
+
+</head>
+<body class="container">
+  <h1 id="audioclip">Audioclip</h1>
+
+<h2 id="totally-gnarly-library-for-playing-audio-clips">Totally gnarly library for playing audio clips.</h2>
+
+<p>Create audioclip play functions from your remote sound files.</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="lineno">1</span> <span class="kd">var</span> <span class="nx">snare</span> <span class="o">=</span> <span class="nx">audioclip</span> <span class="p">(</span><span class="s1">&#39;/path/to/your/awesome/snare/clip.mp3&#39;</span><span class="p">);</span>
+<span class="lineno">2</span> 
+<span class="lineno">3</span> <span class="c1">// :: boom, clap!</span>
+<span class="lineno">4</span> <span class="nx">snare</span><span class="p">();</span></code></pre></div>
+
+<p><button class="o-demo-play-01 -noted button-primary">
+Audioclip play functions are awesome for event handlers.
+</button></p>
+
+<script>
+jQuery(function ($) {
+
+  var audiofile =
+    Modernizr.audio.ogg ? 'snare.ogg' :
+    Modernizr.audio.mp3 ? 'snare.mp3' :
+    Modernizr.audio.wav ? 'snare.wav' : ''
+    ;
+
+  var demobutton = $('.o-demo-play-01');
+
+  if (!!audiofile) {
+    console.log(['assets','audio', audiofile].join('/'));
+    var snare = audioclip(['assets','audio', audiofile].join('/'));
+    demobutton.on('click', function () {
+      snare();
+    });
+  }
+  else {
+    demobutton.text('Your browser does not support HTML 5 Audio.');
+  }
+
+});
+</script>
+
+
+
+
+
+</body>
+</html>
