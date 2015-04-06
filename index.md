@@ -60,17 +60,17 @@ boombass(delay, offset, duration);
   <div class="three columns">&nbsp;</div>
   <div class="-range two columns">
     <h4><span>2.00</span><small>seconds</small></h4>
-    <input type="range" data-range="delay" />
+    <input type="range" data-range="delay" min="0" max="4" />
     <label>Delay</label>
   </div>
   <div class="-range two columns">
     <h4><span>2.00</span><small>seconds</small></h4>
-    <input type="range" data-range="offset" />
+    <input type="range" data-range="offset" min="0" max="4" />
     <label>Offset</label>
   </div>
   <div class="-range two columns">
     <h4><span>2.00</span><small>seconds</small></h4>
-    <input type="range" data-range="duration" />
+    <input type="range" data-range="duration" min="0" max="4" />
     <label>Duration</label>
   </div>
   <div class="three columns">&nbsp;</div>
@@ -91,7 +91,7 @@ jQuery(function ($) {
     .on('input', function () {
 
       var range = $(this);
-      var time = range.val() / 25;
+      var time = range.val();
 
       $(this).data('label').text(time.toFixed(2));
     });
@@ -100,9 +100,9 @@ jQuery(function ($) {
   $('.o-demo-play-02 .button-primary')
     .on('click', function () {
 
-      var delay = ranges.eq(0).val() / 25;
-      var offset = ranges.eq(1).val() / 25;
-      var duration = ranges.eq(2).val() / 25;
+      var delay = ranges.eq(0).val();
+      var offset = ranges.eq(1).val();
+      var duration = ranges.eq(2).val();
 
       guitar(delay,offset,duration);
     });
