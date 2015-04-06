@@ -28,6 +28,8 @@
   <link href='http://fonts.googleapis.com/css?family=Aguafina+Script|Roboto:500,300,500italic,300italic' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="/audioclip/assets/css/site.css">
   
+  <link rel="stylesheet" href="/audioclip/assets/css/landing.css">
+  
 
   <script src="/audioclip/assets/js/modernizr.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -35,7 +37,7 @@
 
 
 </head>
-<body class="container">
+<body class="container -s--landing">
   <h1 id="audioclip">Audioclip</h1>
 
 <h2 id="totally-gnarly-library-for-playing-audio-clips">Totally gnarly library for playing audio clips.</h2>
@@ -48,7 +50,7 @@
 <span class="lineno">4</span> <span class="nx">snare</span><span class="p">();</span></code></pre></div>
 
 <p><button class="o-demo-play-01 -noted button-primary">
-Audioclip play functions are awesome for event handlers.
+Awesome for event handlers.
 </button></p>
 
 <script>
@@ -63,7 +65,6 @@ jQuery(function ($) {
   var demobutton = $('.o-demo-play-01');
 
   if (!!audiofile) {
-    console.log(['assets','audio', audiofile].join('/'));
     var snare = audioclip(['assets','audio', audiofile].join('/'));
     demobutton.on('click', function () {
       snare();
@@ -76,6 +77,9 @@ jQuery(function ($) {
 });
 </script>
 
+<h3 id="timing-and-scheduling">Timing and Scheduling</h3>
+
+<p>lorem10</p>
 
 
 

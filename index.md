@@ -1,5 +1,7 @@
 ---
 layout : "landing"
+stylesheets :
+  - landing.css
 ---
 
 {{ site.meta.name }}
@@ -17,7 +19,7 @@ snare();
 {% endhighlight %}
 
 <button class="o-demo-play-01 -noted button-primary">
-Audioclip play functions are awesome for event handlers.
+Awesome for event handlers.
 </button>
 
 <script>
@@ -32,7 +34,6 @@ jQuery(function ($) {
   var demobutton = $('.o-demo-play-01');
 
   if (!!audiofile) {
-    console.log(['assets','audio', audiofile].join('/'));
     var snare = audioclip(['assets','audio', audiofile].join('/'));
     demobutton.on('click', function () {
       snare();
@@ -44,3 +45,8 @@ jQuery(function ($) {
 
 });
 </script>
+
+
+### Timing and Scheduling
+
+lorem10

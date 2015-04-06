@@ -1,10 +1,17 @@
 # :: files and stuff
-source : ./_sitesrc
 destination : ./_site
+
+layouts : ./_sitesrc/_layouts
+plugins : ./_sitesrc/_plugins
+data_source : ./_sitesrc/_data
+
 
 # :: build configs
 sass :
+  sass_dir : ./_sitesrc/_sass
   style : :compressed
+
+exclude : ['Gemfile', 'Gemfile.lock', 'bower.json', 'gruntfile.js', 'package.json', 'dist', 'node_modules', 'src', 'test']
 
 # :: meta
 timezone : 'Asia/Singapore'

@@ -635,8 +635,6 @@ var acAudioBuffer = (function (_acAudioSourceNode) {
 
           duration = Number.isFinite(duration) ? duration : _this.__buffer.duration - offset;
 
-          console.log(time);
-
           _this.__sourcenode.start(_this.__context.currentTime + time, offset, duration);
 
           return _this.init();

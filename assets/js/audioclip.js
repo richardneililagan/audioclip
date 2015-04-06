@@ -36,6 +36,7 @@ process.browser = true;
 process.env = {};
 process.argv = [];
 process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
 
 function noop() {}
 
@@ -532,7 +533,7 @@ audioclip.createCabinet = function () {
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
 
-var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
+var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc && desc.writable) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
@@ -548,7 +549,7 @@ var acAudioSourceNode = _interopRequire(require("./AudioSourceNode.es6"));
  *  Encapsulates a single audio clip's buffer.
  */
 
-var acAudioBuffer = (function (acAudioSourceNode) {
+var acAudioBuffer = (function (_acAudioSourceNode) {
   function acAudioBuffer(url) {
     var _this = this;
 
@@ -590,9 +591,57 @@ var acAudioBuffer = (function (acAudioSourceNode) {
     });
   }
 
-  _inherits(acAudioBuffer, acAudioSourceNode);
+  _inherits(acAudioBuffer, _acAudioSourceNode);
 
-  _prototypeProperties(acAudioBuffer, {
+  _createClass(acAudioBuffer, {
+    init: {
+
+      /**
+       * Initializes a buffer for playing audio clip.
+       * @return {acAudioBuffer} itself.
+       */
+
+      value: function init() {
+
+        var source = this.createSource();
+
+        source.buffer = this.__buffer;
+        source.connect(this.__context.destination);
+
+        this.__sourcenode = source;
+
+        return this;
+      }
+    },
+    play: {
+
+      /**
+       * Plays this sound one time.
+       * @return {AudioThing} itself.
+       */
+
+      value: function play() {
+        var _this = this;
+
+        var time = arguments[0] === undefined ? 0 : arguments[0];
+        var offset = arguments[1] === undefined ? 0 : arguments[1];
+        var duration = arguments[2] === undefined ? this.__buffer.duration - offset : arguments[2];
+        return (function () {
+
+          // :: failsafe
+          time = Number.isFinite(time) ? time : 0;
+
+          offset = Math.max(0, Math.min(_this.__buffer.duration, Number.isFinite(offset) ? offset : 0));
+
+          duration = Number.isFinite(duration) ? duration : _this.__buffer.duration - offset;
+
+          _this.__sourcenode.start(_this.__context.currentTime + time, offset, duration);
+
+          return _this.init();
+        })();
+      }
+    }
+  }, {
     resolve: {
 
       /**
@@ -621,54 +670,7 @@ var acAudioBuffer = (function (acAudioSourceNode) {
         }
 
         return __buffer;
-      },
-      writable: true,
-      configurable: true
-    }
-  }, {
-    init: {
-
-      /**
-       * Initializes a buffer for playing audio clip.
-       * @return {acAudioBuffer} itself.
-       */
-
-      value: function init() {
-
-        var source = this.createSource();
-
-        source.buffer = this.__buffer;
-        source.connect(this.__context.destination);
-
-        this.__sourcenode = source;
-
-        return this;
-      },
-      writable: true,
-      configurable: true
-    },
-    play: {
-
-      /**
-       * Plays this sound one time.
-       * @return {AudioThing} itself.
-       */
-
-      value: function play() {
-        var _this = this;
-
-        var time = arguments[0] === undefined ? 0 : arguments[0];
-        var offset = arguments[1] === undefined ? 0 : arguments[1];
-        var duration = arguments[2] === undefined ? this.__buffer.duration - offset : arguments[2];
-        return (function () {
-
-          _this.__sourcenode.start(_this.__context.currentTime + time, offset, duration);
-
-          return _this.init();
-        })();
-      },
-      writable: true,
-      configurable: true
+      }
     }
   });
 
@@ -682,7 +684,7 @@ module.exports = acAudioBuffer;
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
 
-var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
+var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc && desc.writable) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
@@ -698,7 +700,7 @@ var acAudioSourceNode = _interopRequire(require("./AudioSourceNode.es6"));
  *  Evaluates effects for an audio buffer.
  */
 
-var acAudioBufferEffector = (function (acAudioSourceNode) {
+var acAudioBufferEffector = (function (_acAudioSourceNode) {
   function acAudioBufferEffector(buffer) {
     _classCallCheck(this, acAudioBufferEffector);
 
@@ -714,13 +716,18 @@ var acAudioBufferEffector = (function (acAudioSourceNode) {
     this.__timings = [];
   }
 
-  _inherits(acAudioBufferEffector, acAudioSourceNode);
+  _inherits(acAudioBufferEffector, _acAudioSourceNode);
 
-  _prototypeProperties(acAudioBufferEffector, null, {
+  _createClass(acAudioBufferEffector, {
     beat: {
       value: function beat() {
         for (var _len = arguments.length, beats = Array(_len), _key = 0; _key < _len; _key++) {
           beats[_key] = arguments[_key];
+        }
+
+        // return the currently registered beats when no argument is specified
+        if (!beats.length) {
+          return this.__timings;
         }
 
         Array.prototype.push.apply(this.__timings, beats.filter(function (n) {
@@ -730,9 +737,11 @@ var acAudioBufferEffector = (function (acAudioSourceNode) {
         this.__timings.sort(function (a, b) {
           return a - b;
         });
-      },
-      writable: true,
-      configurable: true
+        // :: remove duplicates
+        this.__timings = this.__timings.filter(function (item, idx, collection) {
+          return collection.indexOf(item) === idx;
+        });
+      }
     },
     play: {
       value: function play() {
@@ -752,9 +761,7 @@ var acAudioBufferEffector = (function (acAudioSourceNode) {
             this.buffer.play(resolvedTime);
           }
         }
-      },
-      writable: true,
-      configurable: true
+      }
     }
   });
 
@@ -768,7 +775,7 @@ module.exports = acAudioBufferEffector;
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
 
-var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
+var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
@@ -791,7 +798,7 @@ var acAudioCabinet = (function () {
     .bpm(bpm);
   }
 
-  _prototypeProperties(acAudioCabinet, null, {
+  _createClass(acAudioCabinet, {
     init: {
 
       /**
@@ -807,9 +814,7 @@ var acAudioCabinet = (function () {
         this.__source = source;
 
         return this;
-      },
-      writable: true,
-      configurable: true
+      }
     },
     bpm: {
 
@@ -827,9 +832,7 @@ var acAudioCabinet = (function () {
         this.__beattime = 60 / beatsperminute;
 
         return this;
-      },
-      writable: true,
-      configurable: true
+      }
     },
     clip: {
 
@@ -850,9 +853,7 @@ var acAudioCabinet = (function () {
         this.__clips[name] = schedule;
 
         return schedule;
-      },
-      writable: true,
-      configurable: true
+      }
     },
     play: {
       value: function play() {
@@ -862,9 +863,7 @@ var acAudioCabinet = (function () {
         for (var idx = 0; idx < len; idx++) {
           this.__clips[keys[idx]].play(this.__beattime);
         }
-      },
-      writable: true,
-      configurable: true
+      }
     }
   });
 
@@ -878,7 +877,7 @@ module.exports = acAudioCabinet;
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
 
-var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
+var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
@@ -895,13 +894,11 @@ var acAudioSourceNode = (function () {
     this.__context = contextWrapper.getContext();
   }
 
-  _prototypeProperties(acAudioSourceNode, null, {
+  _createClass(acAudioSourceNode, {
     createSource: {
       value: function createSource() {
         return this.__context.createBufferSource();
-      },
-      writable: true,
-      configurable: true
+      }
     }
   });
 
@@ -911,9 +908,10 @@ var acAudioSourceNode = (function () {
 module.exports = acAudioSourceNode;
 
 },{"../utils/audioContextWrapper.es6":13}],13:[function(require,module,exports){
-"use strict";
 
 // create a singleton HTML5 AudioContext
+"use strict";
+
 var context = undefined;
 try {
   context = new (window.AudioContext || window.webkitAudioContext)();
@@ -935,9 +933,9 @@ module.exports = {
 };
 
 },{}],14:[function(require,module,exports){
-"use strict";
-
 // :: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter#Polyfill
+
+"use strict";
 
 Array.prototype.filter = Array.prototype.filter || function (fn) {
   var thisArg = arguments[1] === undefined ? void 0 : arguments[1];
@@ -967,9 +965,9 @@ Array.prototype.filter = Array.prototype.filter || function (fn) {
 };
 
 },{}],15:[function(require,module,exports){
-"use strict";
 
 // :: Arrays
+"use strict";
 
 require("./array/filter.polyfill.es6");
 
@@ -978,9 +976,9 @@ require("./array/filter.polyfill.es6");
 require("./object/keys.polyfill.es6");
 
 },{"./array/filter.polyfill.es6":14,"./object/keys.polyfill.es6":16}],16:[function(require,module,exports){
-"use strict";
-
 // :: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys#Polyfill
+
+"use strict";
 
 Object.keys = Object.keys || (function () {
 
