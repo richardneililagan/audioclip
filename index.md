@@ -128,9 +128,21 @@ cabinet.bpm(216);
 cabinet.play();
 {% endhighlight %}
 
-<button class="o-demo-play-03 -noted button-primary">
-  Let's rock!
-</button>
+<div class="o-demo-play-03 row">
+  <div class="four columns">&nbsp;</div>
+  <div class="-range four columns">
+    <h4>216</h4>
+    <input type="range" min="80" max="320" value="216" />
+    <label>beats per minute</label>
+  </div>
+  <div class="four columns">&nbsp;</div>
+  <div class="twelve columns">
+    <button class="-noted button-primary">
+      Let's rock!
+    </button>
+  </div>
+</div>
+
 
 <script>
 jQuery(function ($) {
@@ -144,8 +156,15 @@ jQuery(function ($) {
   // set bpm
   cabinet.bpm(216);
 
-  $('button.o-demo-play-03')
+  var span = $('.o-demo-play-03 .-range h4');
+  var range = $('.o-demo-play-03 input[type=range]')
+    .on('input', function () {
+      span.text(range.val());
+    });
+
+  $('.o-demo-play-03 button')
     .on('click', function () {
+      cabinet.bpm(+range.val())
       cabinet.play();
     })
     ;
