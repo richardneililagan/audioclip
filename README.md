@@ -1,4 +1,3 @@
-# JOHN VICTOR PEREZ
 audioclip
 ===
 
