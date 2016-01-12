@@ -1,0 +1,213 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'>
+  <meta content='width=device-width, initial-scale=1.0' name='viewport'>
+
+  
+  <title></title>
+  <meta content="" property="og:title">
+  <meta content="" property="twitter:title">
+  
+
+  <meta content='Audioclip' property='og:site_name'>
+  <meta content="website" property="og:type">
+
+  
+  <meta content="Totally gnarly library for playing audio clips." name="description">
+  <meta content="Totally gnarly library for playing audio clips." property="og:description">
+  
+
+  
+
+  
+  <script>if(~location.hostname.indexOf("richardneililagan.github.io")){var _gaq=_gaq||[];_gaq.push(["_setAccount","UA-61578430-1"]);_gaq.push(["_trackPageview"]);(function(){var ga=document.createElement("script");ga.async=true;ga.src=("https:"==document.location.protocol?"https://ssl":"http://www")+".google-analytics.com/ga.js";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ga,s)})()}</script>
+  
+
+  <link href='http://fonts.googleapis.com/css?family=Aguafina+Script|Roboto:500,300,500italic,300italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/audioclip/assets/css/site.css">
+  
+  <link rel="stylesheet" href="/audioclip/assets/css/landing.css">
+  
+
+  <script src="/audioclip/assets/js/modernizr.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="/audioclip/assets/js/audioclip.min.js"></script>
+
+
+</head>
+<body class="container -s--landing">
+  <h1 id="audioclip">Audioclip</h1>
+
+<h2 id="totally-gnarly-library-for-playing-audio-clips">Totally gnarly library for playing audio clips.</h2>
+
+<p>Create audioclip play functions from your remote sound files.</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="lineno">1</span> <span class="kd">var</span> <span class="nx">snare</span> <span class="o">=</span> <span class="nx">audioclip</span> <span class="p">(</span><span class="s1">&#39;/path/to/your/awesome/snare/clip.mp3&#39;</span><span class="p">);</span>
+<span class="lineno">2</span> 
+<span class="lineno">3</span> <span class="c1">// :: boom, clap!</span>
+<span class="lineno">4</span> <span class="nx">snare</span><span class="p">();</span></code></pre></div>
+
+<p><button class="o-demo-play-01 -noted button-primary">
+Awesome for event handlers.
+</button></p>
+
+<script>
+jQuery(function ($) {
+
+  var audiofile =
+    Modernizr.audio.ogg ? 'snare.ogg' :
+    Modernizr.audio.mp3 ? 'snare.mp3' :
+    Modernizr.audio.wav ? 'snare.wav' : ''
+    ;
+
+  var demobutton = $('.o-demo-play-01');
+
+  if (!!audiofile) {
+    var snare = audioclip(['assets','audio', audiofile].join('/'));
+    demobutton.on('click', function () {
+      snare();
+    });
+  }
+  else {
+    demobutton.text('Your browser does not support HTML 5 Audio.');
+  }
+
+});
+</script>
+
+<h3 id="timing-and-scheduling">Timing and Scheduling</h3>
+
+<p>Specify how long to skip, how long to play, and how long to wait before playing any clip.</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="lineno">1</span> <span class="kd">var</span> <span class="nx">boombass</span> <span class="o">=</span> <span class="nx">audioclip</span><span class="p">(</span><span class="s1">&#39;/boombass.ogg&#39;</span><span class="p">);</span>
+<span class="lineno">2</span> <span class="nx">boombass</span><span class="p">(</span><span class="nx">delay</span><span class="p">,</span> <span class="nx">offset</span><span class="p">,</span> <span class="nx">duration</span><span class="p">);</span></code></pre></div>
+
+<div class="o-demo-play-02 row">
+  <div class="three columns">&nbsp;</div>
+  <div class="-range two columns">
+    <h4><span>2.00</span><small>seconds</small></h4>
+    <input type="range" data-range="delay" min="0.00" max="4" step=".01" />
+    <label>Delay</label>
+  </div>
+  <div class="-range two columns">
+    <h4><span>2.00</span><small>seconds</small></h4>
+    <input type="range" data-range="offset" min="0.00" max="4" step=".01" />
+    <label>Offset</label>
+  </div>
+  <div class="-range two columns">
+    <h4><span>2.00</span><small>seconds</small></h4>
+    <input type="range" data-range="duration" min="0.00" max="4" step=".01" />
+    <label>Duration</label>
+  </div>
+  <div class="three columns">&nbsp;</div>
+  <div class="twelve columns">
+    <button class="button-primary -noted">
+      Guitar Solo!
+    </button>
+  </div>
+</div>
+
+<script>
+jQuery(function ($) {
+  var ranges = $('.o-demo-play-02 input[type=range]')
+    .each(function () {
+      var range = $(this);
+      range.data('label', range.prev('h4').find('span'));
+    })
+    .on('input', function () {
+
+      var range = $(this);
+      var time = +range.val();
+
+      $(this).data('label').text(time.toFixed(2));
+    });
+
+  var guitar = audioclip('assets/audio/guitar-fmajor.mp3');
+  $('.o-demo-play-02 .button-primary')
+    .on('click', function () {
+
+      var delay = +ranges.eq(0).val();
+      var offset = +ranges.eq(1).val();
+      var duration = +ranges.eq(2).val();
+
+      guitar(delay,offset,duration);
+    });
+});
+</script>
+
+<h3 id="syncing-plays">Syncing plays</h3>
+
+<p>Multiple audioclips can be made to play in sync with each other, each with its own scheduling of when it plays.<br />
+Coordination of the play schedules can be controlled together using a <strong>bpm</strong> measure.</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="lineno"> 1</span> <span class="kd">var</span> <span class="nx">cabinet</span> <span class="o">=</span> <span class="nx">audioclip</span><span class="p">.</span><span class="nx">createCabinet</span><span class="p">();</span>
+<span class="lineno"> 2</span> 
+<span class="lineno"> 3</span> <span class="nx">cabinet</span><span class="p">.</span><span class="nx">clip</span><span class="p">(</span><span class="s1">&#39;hihat&#39;</span><span class="p">,</span> <span class="s1">&#39;hihat.mp3&#39;</span><span class="p">).</span><span class="nx">beat</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">13</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>
+<span class="lineno"> 4</span> <span class="nx">cabinet</span><span class="p">.</span><span class="nx">clip</span><span class="p">(</span><span class="s1">&#39;kick&#39;</span><span class="p">,</span> <span class="s1">&#39;kick.mp3&#39;</span><span class="p">).</span><span class="nx">beat</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">11</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>
+<span class="lineno"> 5</span> <span class="nx">cabinet</span><span class="p">.</span><span class="nx">clip</span><span class="p">(</span><span class="s1">&#39;snare&#39;</span><span class="p">,</span> <span class="s1">&#39;snare.mp3&#39;</span><span class="p">).</span><span class="nx">beat</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">28</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">29</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">30</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mi">31</span><span class="o">/</span><span class="mi">4</span><span class="p">);</span>
+<span class="lineno"> 6</span> 
+<span class="lineno"> 7</span> <span class="c1">// set bpm</span>
+<span class="lineno"> 8</span> <span class="nx">cabinet</span><span class="p">.</span><span class="nx">bpm</span><span class="p">(</span><span class="mi">216</span><span class="p">);</span>
+<span class="lineno"> 9</span> 
+<span class="lineno">10</span> <span class="nx">cabinet</span><span class="p">.</span><span class="nx">play</span><span class="p">();</span></code></pre></div>
+
+<div class="o-demo-play-03 row">
+  <div class="four columns">&nbsp;</div>
+  <div class="-range four columns">
+    <h4>216</h4>
+    <input type="range" min="80" max="320" value="216" />
+    <label>beats per minute</label>
+  </div>
+  <div class="four columns">&nbsp;</div>
+  <div class="twelve columns">
+    <button class="-noted button-primary">
+      Let's rock!
+    </button>
+  </div>
+</div>
+
+<script>
+jQuery(function ($) {
+
+  var cabinet = audioclip.createCabinet();
+
+  cabinet.clip('hihat', 'assets/audio/hihat.mp3').beat(0, 1, 2, 5/2, 3, 4, 5, 6, 13/2, 7);
+  cabinet.clip('kick', 'assets/audio/kick.mp3').beat(0, 3/2, 7/2, 9/2, 11/2);
+  cabinet.clip('snare', 'assets/audio/snare.mp3').beat(2, 3, 6, 28/4, 29/4, 30/4, 31/4);
+
+  // set bpm
+  cabinet.bpm(216);
+
+  var span = $('.o-demo-play-03 .-range h4');
+  var range = $('.o-demo-play-03 input[type=range]')
+    .on('input', function () {
+      span.text(range.val());
+    });
+
+  $('.o-demo-play-03 button')
+    .on('click', function () {
+      cabinet.bpm(+range.val())
+      cabinet.play();
+    })
+    ;
+});
+
+</script>
+
+<h2 id="check-it-out">Check it out!</h2>
+
+<p><a href="https://github.com/richardneililagan/audioclip" class="button -download">
+  Download from Github
+</a></p>
+
+<div>
+  <iframe src="https://ghbtns.com/github-btn.html?user=richardneililagan&amp;repo=audioclip&amp;type=star&amp;count=true" frameborder="0" scrolling="0" width="80px" height="20px"></iframe>
+  <iframe src="https://ghbtns.com/github-btn.html?user=richardneililagan&amp;type=follow&amp;count=true" frameborder="0" scrolling="0" width="200px" height="20px"></iframe>
+</div>
+
+
+
+</body>
+</html>

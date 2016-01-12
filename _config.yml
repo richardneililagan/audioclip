@@ -1,0 +1,42 @@
+# :: files and stuff
+source : ./
+destination : ./_site
+
+layouts : ./_sitesrc/_layouts
+plugins : ./_sitesrc/_plugins
+data_source : ./_sitesrc/_data
+
+
+# :: build configs
+sass :
+  sass_dir : ./_sitesrc/_sass
+  style : :compressed
+
+exclude : ['Gemfile', 'bower.json', 'gruntfile.js', 'package.json', 'dist', 'node_modules', 'src', 'test']
+include : ['_sitesrc']
+
+# :: meta
+timezone : 'Asia/Singapore'
+encoding : 'utf-8'
+baseurl  : '/audioclip'    # makes it easier to test this on dev
+
+defaults :
+  - scope :
+      path : "" # all files in the project
+    values :
+      layout : "default"
+
+meta :
+  name : "Audioclip"
+  description : "Totally gnarly library for playing audio clips."
+  hostname : "richardneililagan.github.io"
+
+# :: externs
+analytics :
+  id : UA-61578430-1
+
+# :: formatting
+highlighter : pygments
+markdown : kramdown
+kramdown :
+  input : GFM

@@ -54,6 +54,14 @@ module.exports = function (grunt) {
         dest : 'test/assets/js/',
         flatten : true,
         filter : 'isFile'
+      },
+      site : {
+        expand : true,
+        cwd : 'dist/',
+        src : '**',
+        dest : 'assets/js/',
+        flatten : true,
+        filter : 'isFile'
       }
     },
 
@@ -127,8 +135,6 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('serve', ['build', 'express', 'wait', 'open:test', 'watch']);
-
-  grunt.registerTask('build', ['jshint:source', 'browserify', 'uglify']);
-  grunt.registerTask('test', ['build, copy']);
+  grunt.registerTask('build', ['jshint:source', 'browserify', 'uglify', 'copy']);
 
 };
